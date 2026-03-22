@@ -1,4 +1,4 @@
-# 🔗 URL Shortener with Analytics
+# 🔗 URL Shortener with Analytics (In progress)
 
 A backend-heavy URL shortening service built with the MERN stack. Paste a long URL, get a short one. Every click is tracked — device, timestamp, location. Think mini Bitly.
 
