@@ -10,7 +10,7 @@ app.get("/", (req, res) => {
 
 app.post("/short", (req, res) => {
   const short = Math.random().toString(36).substring(2, 8);
-  
+  url[short] = req.body.longUrl;
   console.log(req.body);
   console.log(url);
 
