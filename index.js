@@ -16,7 +16,7 @@ app.post("/short", (req, res) => {
 
   res.send({
     longUrl: req.body.longUrl,
-    shortUrl: short,f
+    shortUrl: short,
   });
 });
 
