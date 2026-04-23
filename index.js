@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const Url = require("./urlModel");
+const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/urlShortner");
 
 app.use(express.json()); //middle Ware for converting raw data to js object
@@ -11,18 +12,19 @@ app.get("/", (req, res) => {
   res.send("The URL Shortner Is Live!!!!");
 });
 
-app.post("/short",async (req, res) => {
-   const shortUrl =await Math.random().toString(36).substring(2, 8); //converting the long url into
-  urls[shortUrl] = req.body.longUrl;
-  console.log(urls);
+app.post("/short", async (req, res) => {
+  const shorturl = Math.random().toString(36).substring(2, 8); //converting the long url into
+  const entry = new Url({ longUrl: req.body.longUrl, shortUrl: shorturl });
+  await entry.save();
   res.send({
     longUrl: req.body.longUrl,
-    shortUrl: shortUrl,
+    shortUrl: shorturl,
   });
 });
-app.get("/:url", (req, res) => {
-  const longUrl = urls[req.params.url]; //shorten link redirection
-  res.redirect(longUrl);
+app.get("/:url", async (req, res) => {
+  const urlDoc = await Url.findOne({shortUrl:req.params.url}); //shorten link redirection
+  res.redirect(urlDoc.longUrl);
+  console.log(req.params.url)
 });
 
 app.listen(port, () => {
