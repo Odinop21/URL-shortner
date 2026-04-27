@@ -6,9 +6,13 @@
     <title>Url Shortener</title>
 </head>
 <body>
-    <input type="text" id="urlInput" placeholder="Enter URL to shorten">
-    <button id="shortenBtn">Shorten URL</button>
-    <p id="result"></p>
-
+    <h1>Paste Your Url In the Box Below</h1>
+    <form action="index.js" method="POST">
+        <label for="longLink" >Long Link</label>
+        <input type="text" id="longLink" placeholder="Enter your long URL here" required>
+        <input type="reset">
+        <input type="submit">
+    </form>
+    <script></script>
 </body>
 </html>
