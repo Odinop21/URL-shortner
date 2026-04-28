@@ -1,18 +1,52 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Url Shortener</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Paste Your Url In the Box Below</h1>
-    <form action="index.js" method="POST">
-        <label for="longLink" >Long Link</label>
-        <input type="text" id="longLink" placeholder="Enter your long URL here" required>
-        <input type="reset">
-        <input type="submit">
+    <form>
+      <label for="longUrl">Long Link</label>
+      <input
+        type="text"
+        id="longUrl"
+        placeholder="Enter your long URL here"
+        required
+      />
+      <input type="reset" />
+      <input type="submit" />
     </form>
-    <script></script>
-</body>
+    <br /><br /><br />
+    <div id="short">Your Short Url IS Ready:</div>
+    <script>
+      async function fetchData() {
+        try {
+          let response = await fetch("http://localhost:3000/short", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              longUrl: document.getElementById("longUrl").value,
+            }),
+          });
+          let data = await response.json();
+          console.log("Shortened URL:", data);
+          document.getElementById("short").innerHTML =
+            `Your Short Url is ready:${data.shortUrl}`;
+        } catch (error) {
+          console.error("Error fetching shortened URL:", error);
+          
+        }
+      }
+
+      document
+        .querySelector('input[type="submit"]')
+        .addEventListener("click", (event) => {
+          console.log("button clicked!");
+          event.preventDefault();
+          fetchData();
+       });
+    </script>
+  </body>
 </html>
