@@ -12,16 +12,21 @@
       <input
         type="text"
         id="longUrl"
-        placeholder="Enter your long URL here"
+        placeholder="Paste your long URL here"
         required
       />
       <input type="reset" />
       <input type="submit" />
     </form>
     <br /><br /><br />
-    <div id="short">Your Short Url IS Ready:</div>
+    <div id="short">Your Short Url Is Ready:</div>
     <script>
       async function fetchData() {
+        const longUrl = document.getElementById("longUrl").value; //Get the value of the long URL input field to check if it's empty before making the API call
+        if (longUrl === "") {
+          alert("Please enter a URL");
+          return;
+        }
         try {
           let response = await fetch("http://localhost:3000/short", {
             method: "POST",
@@ -33,10 +38,10 @@
           let data = await response.json();
           console.log("Shortened URL:", data);
           document.getElementById("short").innerHTML =
-            `Your Short Url is ready:${data.shortUrl}`;
+            "Your short Url :" +
+            `<a href ="http://localhost:3000/${data.shortUrl}" target= "_blank">${data.shortUrl}</a>`;
         } catch (error) {
           console.error("Error fetching shortened URL:", error);
-          
         }
       }
 
@@ -46,7 +51,7 @@
           console.log("button clicked!");
           event.preventDefault();
           fetchData();
-       });
+        });
     </script>
   </body>
 </html>
