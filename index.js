@@ -24,7 +24,7 @@ app.post("/short", async (req, res) => {
     shortUrl: shorturl,
   });
 });
-app.get("/:url", async (req, res) => {
+app.get("/:url", async (req, res) => { //Dynamic routing
   //  console.log(req.params.url);
   const urlDoc = await Url.findOne({ shortUrl: req.params.url }); //shorten link redirection
   if (urlDoc == null) {
