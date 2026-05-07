@@ -45,7 +45,7 @@
         margin-top: 30px;
         font-size: 18px;
       }
-      a{
+      a {
         color: #adc1d6;
         text-decoration: none;
         font-weight: 600;
@@ -74,14 +74,12 @@
         if (longUrl === "") {
           alert("Please enter a URL");
           return;
-<<<<<<< HEAD
         }
-      
-=======
+
         };
         //  const string = longUrl
         //  function isValidURL(string) {
-          
+
         //   try {
         //     new URL(string);
         //     return true;
@@ -103,7 +101,6 @@
         //   }}
         // isHttpValid();
 
->>>>>>> edgecases
         try {
           let response = await fetch("http://localhost:3000/short", {
             method: "POST",
@@ -119,20 +116,16 @@
             `<a href ="http://localhost:3000/${data.shortUrl}" target= "_blank" >${data.shortUrl}</a>`;
         } catch (error) {
           console.error("Error fetching shortened URL:", error);
-<<<<<<< HEAD
         }
-      }
 
-      document
-        .querySelector('input[type="submit"]')
+      document.querySelector('input[type="submit"]')
         .addEventListener("click", (event) => {
           console.log("button clicked!");
           event.preventDefault();
           fetchData();
         });
-=======
-        }}
-      
+
+
 
       document.querySelector('input[type="submit"]').addEventListener("click", (event) => { //event listener for the submit button to trigger the fetchData function when clicked, and prevent the default form submission behavior
         console.log("button clicked!");
@@ -146,10 +139,9 @@
         document.getElementById("short").innerHTML = "";
         document.getElementById('input[type="reset"]').innerHTML = "";
         event.preventDefault();
-        
-        
+
+
       });
->>>>>>> edgecases
     </script>
   </body>
 </html>
