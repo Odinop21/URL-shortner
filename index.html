@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- <script src="./script.js" defer></script> -->
     <title>Url Shortener</title>
     <style>
       body {
@@ -69,79 +70,87 @@
     <br /><br /><br />
     <div id="short">Your Short Url Is Ready:</div>
     <script>
-      async function fetchData() {
+            async function fetchData() {
         const longUrl = document.getElementById("longUrl").value; //Get the value of the long URL input field to check if it's empty before making the API call
         if (longUrl === "") {
           alert("Please enter a URL");
           return;
+        }else if
+          (!isHttpValid(longUrl)) {
+          return;
+        }
+          }
+
+
+        const string = longUrl;
+        function isValidURL(longUrl) {
+          try {
+            new URL(longUrl);
+            return true;
+          } catch (err) {
+            alert("Invalid URL!!!! Please enter a valid URL.");
+            return false;
+          }
+        }
+        isValidURL();
+
+        // To strictly allow only http/https protocols:
+        function isHttpValid(longUrl) {
+          try {
+            const url = new URL(longUrl);
+            return url.protocol === "http:" || url.protocol === "https:";
+          } catch (err) {
+            alert("Invalid URL!!!! Please enter a valid URL.");
+            return false;
+          }
         }
 
-        };
-        //  const string = longUrl
-        //  function isValidURL(string) {
+      isHttpValid();
 
-        //   try {
-        //     new URL(string);
-        //     return true;
-        //   } catch (err) {
-        //     alert("Invalid URL!!!! Please enter a valid URL.");
-        //     return false;
-        //   }
-        // }
-        // isValidURL();
+      try {
+        let response = await fetch("http://localhost:3000/short", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            longUrl: document.getElementById("longUrl").value,
+          }),
+        });
+        let data = await response.json();
+        console.log("Shortened URL:", data);
+        document.getElementById("short").innerHTML =
+          "Your short Url :  " +
+          `<a href ="http://localhost:3000/${data.shortUrl}" target= "_blank" >${data.shortUrl}</a>`;
+      } catch (error) {
+        console.error("Error fetching shortened URL:", error);
+      }}
 
-        // // To strictly allow only http/https protocols:
-        //  function isHttpValid(string) {
-        //   try {
-        //    const url = new URL(longUrl);
-        //     return url.protocol === "http:" || url.protocol === "https:";
-        //   } catch (err) {
-        //     alert("Invalid URL!!!! Please enter a valid URL.");
-        //     return false;
-        //   }}
-        // isHttpValid();
-
-        try {
-          let response = await fetch("http://localhost:3000/short", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              longUrl: document.getElementById("longUrl").value,
-            }),
-          });
-          let data = await response.json();
-          console.log("Shortened URL:", data);
-          document.getElementById("short").innerHTML =
-            "Your short Url :  " +
-            `<a href ="http://localhost:3000/${data.shortUrl}" target= "_blank" >${data.shortUrl}</a>`;
-        } catch (error) {
-          console.error("Error fetching shortened URL:", error);
-        }
-
-      document.querySelector('input[type="submit"]')
+      document
+        .querySelector('input[type="submit"]')
         .addEventListener("click", (event) => {
           console.log("button clicked!");
           event.preventDefault();
           fetchData();
         });
 
-
-
-      document.querySelector('input[type="submit"]').addEventListener("click", (event) => { //event listener for the submit button to trigger the fetchData function when clicked, and prevent the default form submission behavior
-        console.log("button clicked!");
-        event.preventDefault();
-        fetchData();
-      });
+      document
+        .querySelector('input[type="submit"]')
+        .addEventListener("click", (event) => {
+          //event listener for the submit button to trigger the fetchData function when clicked, and prevent the default form submission behavior
+          console.log("button clicked!");
+          event.preventDefault();
+          fetchData();
+        });
       // const resetButton = document.querySelector('input[type = "reset"]');
       // const shortUrlDisplay = document.getElementById("short");
-       document.querySelector('input[type = "reset"]').addEventListener("click", (event) => { //event listener for the reset button to trigger the reset of the form and clear the shortened URL display when clicked, and prevent the default form reset behavior
-        console.log("Reset Initated !");
-        document.getElementById("short").innerHTML = "";
-        document.getElementById('input[type="reset"]').innerHTML = "";
-        event.preventDefault();
-
-
-      });
+      document
+        .querySelector('input[type = "reset"]')
+        .addEventListener("click", (event) => {
+          //event listener for the reset button to trigger the reset of the form and clear the shortened URL display when clicked, and prevent the default form reset behavior
+          console.log("Reset Initated !");
+          document.getElementById("short").innerHTML = "";
+          document.getElementById('input[type="reset"]').innerHTML = "";
+          event.preventDefault();
+        });
     </script>
   </body>
 </html>
