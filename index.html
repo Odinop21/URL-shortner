@@ -56,7 +56,7 @@
         isValidURL();
 
         try {
-          let response = await fetch("http://localhost:3000/short", {
+          let response = await fetch("odins-url-shortner.up.railway.app/", {
             //Make a POST request to the server's /short endpoint with the long URL in the request body as JSON
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -79,48 +79,11 @@
         .querySelector('input[type="submit"]')
         .addEventListener("click", (event) => {
           console.log("button clicked!");
-          event.preventDefault();
-          fetchData();
-        });
-
-      document
-        .querySelector('input[type="submit"]')
-        .addEventListener("click", (event) => {
-          //event listener for the submit button to trigger the fetchData function when clicked, and prevent the default form submission behavior
           console.log("button clicked!");
-          event.preventDefault();
-          fetchData();
-        });
-      // const resetButton = document.querySelector('input[type = "reset"]');
-      // const shortUrlDisplay = document.getElementById("short");
-      document
-        .querySelector('input[type = "reset"]')
-        .addEventListener("click", (event) => {
-          //event listener for the reset button to trigger the reset of the form and clear the shortened URL display when clicked, and prevent the default form reset behavior
-          console.log("Reset Initated !");
           document.getElementById("short").innerHTML = "";
           document.getElementById('input[type="reset"]').innerHTML = "";
           event.preventDefault();
-        });
-
-      document
-        .querySelector('input[type="submit"]')
-        .addEventListener("click", (event) => {
-          //event listener for the submit button to trigger the fetchData function when clicked, and prevent the default form submission behavior
-          console.log("button clicked!");
-          event.preventDefault();
           fetchData();
-        });
-      // const resetButton = document.querySelector('input[type = "reset"]');
-      // const shortUrlDisplay = document.getElementById("short");
-      document
-        .querySelector('input[type = "reset"]')
-        .addEventListener("click", (event) => {
-          //event listener for the reset button to trigger the reset of the form and clear the shortened URL display when clicked, and prevent the default form reset behavior
-          console.log("Reset Initated !");
-          document.getElementById("short").innerHTML = "";
-          document.getElementById('input[type="reset"]').innerHTML = "";
-          event.preventDefault();
         });
     </script>
   </body>
