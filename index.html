@@ -30,9 +30,10 @@
           alert("Please enter a URL");
           return;
         }
-        function isHttpvalid(longUrl) {
+
+        function isHttpvalid(string) {
           try {
-            const url = new URL(longUrl);
+            const url = new URL(string);
             return url.protocol === "http:" || url.protocol === "https:";
           } catch (error) {
             alert("Please enter a valid URL");
@@ -43,27 +44,18 @@
           return;
         }
 
-        const string = longUrl;
-        function isValidURL(longUrl) {
-          try {
-            new URL(longUrl);
-            return true;
-          } catch (err) {
-            alert("Invalid URL!!!! Please enter a valid URL.");
-            return false;
-          }
-        }
-        isValidURL();
-
         try {
-          let response = await fetch("odins-url-shortner.up.railway.app/", {
-            //Make a POST request to the server's /short endpoint with the long URL in the request body as JSON
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              longUrl: document.getElementById("longUrl").value,
-            }),
-          });
+          let response = await fetch(
+            "https://odins-url-shortner.up.railway.app/short",
+            {
+              //Make a POST request to the server's /short endpoint with the long URL in the request body as JSON
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                longUrl: document.getElementById("longUrl").value,
+              }),
+            },
+          );
 
           let data = await response.json(); //Parse the response as JSON to access the shortened URL data returned by the server
           // console.log("Shortened URL:", data);
@@ -74,11 +66,10 @@
           console.error("Error fetching shortened URL:", error);
         }
       }
-
       document
         .querySelector('input[type="submit"]')
         .addEventListener("click", (event) => {
-          console.log("button clicked!");
+          
           console.log("button clicked!");
           document.getElementById("short").innerHTML = "";
           event.preventDefault();
