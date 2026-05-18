@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = 3000;
+const port = process.env.port ||3000;
 const cors = require("cors");
 const Url = require("./urlModel");
 const mongoose = require("mongoose");
@@ -33,6 +33,6 @@ app.get("/:url", async (req, res) => { //Dynamic routing
   res.redirect(urlDoc.longUrl);
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0',() => {
   console.log(`app listening on port ${port}`); //this is the logic to listen to the server
 });
