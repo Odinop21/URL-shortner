@@ -4,7 +4,7 @@ const port = process.env.port ||3000;
 const cors = require("cors");
 const Url = require("./urlModel");
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/urlShortner");
+mongoose.connect("process.env.MONGODB_URI");
 app.use(cors()); //cors is used to allow the cross origin resource sharing
 app.use(express.json()); //middle Ware for converting raw data to js object
 const urls = {};
